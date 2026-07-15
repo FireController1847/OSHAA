@@ -55,9 +55,25 @@ configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
+// Add repositories
+repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+}
+
 // Configure dependencies
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+
+    localRuntime "maven.modrinth:jei:${jei_version}"
+    localRuntime "maven.modrinth:jade:${jade_version}"
+    localRuntime "maven.modrinth:pipez:${pipez_version}"
+    localRuntime "maven.modrinth:powah:${powah_version}"
+
+    localRuntime "maven.modrinth:cloth-config:${cloth_config_version}"
+    localRuntime "maven.modrinth:guideme:${guideme_version}"
 }
 
 // Configure replacement of properties within resources
