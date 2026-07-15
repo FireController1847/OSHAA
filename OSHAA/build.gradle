@@ -1,0 +1,94 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
+}
+
+// Set the Gradle distribution type for the wrapper
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+// Set mod version, group, and base archive name
+version = mod_version
+group = mod_group_id
+base {
+    archivesName = 'oshaa-' + minecraft_version + '-' + mod_version
+}
+
+// Include generated resources, exclude common project files
+sourceSets.main.resources {
+    exclude("**/*.bbmodel")
+}
+
+// Set the Java toolchain target to Java 21
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+// Configure run configurations
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        workingDirectory project.layout.projectDirectory.dir('run').dir(name)
+        modSource project.sourceSets.main
+    }
+    client {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+            jvmArguments '-XstartOnFirstThread'
+        }
+    }
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+    data {
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+// Depend on 'localRuntime' for correct dependency resolution
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+// Configure dependencies
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+}
+
+// Configure replacement of properties within resources
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_description        : mod_description,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors
+    ]
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+// Set UTF-8 encoding for Java compilation
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Configure IntelliJ IDEA to download sources and Javadocs for dependencies
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
