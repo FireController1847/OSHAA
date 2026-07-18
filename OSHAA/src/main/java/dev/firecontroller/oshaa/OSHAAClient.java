@@ -1,15 +1,12 @@
 package dev.firecontroller.oshaa;
 
 import dev.firecontroller.oshaa.block.entity.ExitSignBlockEntity;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -24,18 +21,6 @@ public final class OSHAAClient {
      */
     public OSHAAClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-    }
-
-    /**
-     * Event handler for the {@link FMLClientSetupEvent}.
-     */
-    @SubscribeEvent
-    public static void onClientSetupEvent(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            /* SODIUM FIX; INCORRECTLY HANDLED MULTIPART RENDER TYPES */
-            //noinspection deprecation
-            ItemBlockRenderTypes.setRenderLayer(OABlocks.EXIT_SIGN.get(), RenderType.cutout());
-        });
     }
 
     /**

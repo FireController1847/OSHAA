@@ -1,0 +1,135 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "overlay": "oshaa:block/exit_sign_overlay_lit",
+    "light_probe": "oshaa:block/exit_sign_light_probe",
+    "particle": "oshaa:block/exit_sign"
+  },
+  "elements": [
+    {
+      "name": "Front",
+      "from": [
+        2.5,
+        8,
+        6.98
+      ],
+      "to": [
+        13,
+        13,
+        6.99
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    },
+    {
+      "name": "Back",
+      "from": [
+        3,
+        8,
+        9.01
+      ],
+      "to": [
+        13.5,
+        13,
+        9.02
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    },
+    {
+      "name": "Front Light Probe",
+      "from": [
+        2.5,
+        8,
+        6.965
+      ],
+      "to": [
+        13,
+        13,
+        6.97
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#light_probe",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    },
+    {
+      "name": "Back Light Probe",
+      "from": [
+        3,
+        8,
+        9.03
+      ],
+      "to": [
+        13.5,
+        13,
+        9.035
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#light_probe",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    }
+  ]
+}

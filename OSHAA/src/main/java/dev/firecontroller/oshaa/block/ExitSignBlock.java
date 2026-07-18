@@ -1,13 +1,14 @@
 package dev.firecontroller.oshaa.block;
 
 import com.mojang.serialization.MapCodec;
-import dev.firecontroller.oshaa.OABlockEntities;
 import dev.firecontroller.oshaa.OAUtil;
 import dev.firecontroller.oshaa.block.entity.ExitSignBlockEntity;
 import dev.firecontroller.oshaa.item.SafetyBinderItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -21,8 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -162,10 +161,9 @@ public class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
-        if (level.isClientSide) return null;
-        if (blockEntityType != OABlockEntities.EXIT_SIGN.get()) return null;
-        return (tickerLevel, tickerPos, tickerState, blockEntity) -> ExitSignBlockEntity.tick(tickerLevel, tickerPos, tickerState, (ExitSignBlockEntity) blockEntity);
+    protected void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (!(level.getBlockEntity(pos) instanceof ExitSignBlockEntity exitSignBlockEntity)) return;
+        exitSignBlockEntity.consumeOperatingEnergy();
     }
 
     private static VoxelShape getShape(BlockState state) {

@@ -12,7 +12,8 @@
     {
       "when": {
         "face": "floor",
-        "facing": "north"
+        "facing": "north",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_floor"
@@ -22,7 +23,18 @@
       "when": {
         "face": "floor",
         "facing": "north",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_floor_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "north",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_floor"
@@ -32,7 +44,19 @@
       "when": {
         "face": "floor",
         "facing": "north",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_floor_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_floor"
@@ -41,6 +65,17 @@
     {
       "when": {
         "face": "floor",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_floor_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
         "facing": "east"
       },
       "apply": {
@@ -51,7 +86,8 @@
     {
       "when": {
         "face": "floor",
-        "facing": "east"
+        "facing": "east",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_floor",
@@ -62,7 +98,19 @@
       "when": {
         "face": "floor",
         "facing": "east",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_floor_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "east",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_floor",
@@ -73,10 +121,35 @@
       "when": {
         "face": "floor",
         "facing": "east",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_floor_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_floor",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_floor_lit",
         "y": 90
       }
     },
@@ -93,7 +166,8 @@
     {
       "when": {
         "face": "floor",
-        "facing": "south"
+        "facing": "south",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_floor",
@@ -104,7 +178,19 @@
       "when": {
         "face": "floor",
         "facing": "south",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_floor_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_floor",
@@ -115,10 +201,35 @@
       "when": {
         "face": "floor",
         "facing": "south",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_floor_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_floor",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_floor_lit",
         "y": 180
       }
     },
@@ -135,7 +246,8 @@
     {
       "when": {
         "face": "floor",
-        "facing": "west"
+        "facing": "west",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_floor",
@@ -146,7 +258,19 @@
       "when": {
         "face": "floor",
         "facing": "west",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_floor_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_floor",
@@ -157,10 +281,35 @@
       "when": {
         "face": "floor",
         "facing": "west",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_floor_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_floor",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "floor",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_floor_lit",
         "y": 270
       }
     },
@@ -176,7 +325,8 @@
     {
       "when": {
         "face": "ceiling",
-        "facing": "north"
+        "facing": "north",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_ceiling"
@@ -186,7 +336,18 @@
       "when": {
         "face": "ceiling",
         "facing": "north",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_ceiling_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "north",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_ceiling"
@@ -196,7 +357,19 @@
       "when": {
         "face": "ceiling",
         "facing": "north",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_ceiling_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_ceiling"
@@ -205,6 +378,17 @@
     {
       "when": {
         "face": "ceiling",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_ceiling_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
         "facing": "east"
       },
       "apply": {
@@ -215,7 +399,8 @@
     {
       "when": {
         "face": "ceiling",
-        "facing": "east"
+        "facing": "east",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_ceiling",
@@ -226,7 +411,19 @@
       "when": {
         "face": "ceiling",
         "facing": "east",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_ceiling_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_ceiling",
@@ -237,10 +434,35 @@
       "when": {
         "face": "ceiling",
         "facing": "east",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_ceiling_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_ceiling",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_ceiling_lit",
         "y": 90
       }
     },
@@ -257,7 +479,8 @@
     {
       "when": {
         "face": "ceiling",
-        "facing": "south"
+        "facing": "south",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_ceiling",
@@ -268,7 +491,19 @@
       "when": {
         "face": "ceiling",
         "facing": "south",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_ceiling_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_ceiling",
@@ -279,10 +514,35 @@
       "when": {
         "face": "ceiling",
         "facing": "south",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_ceiling_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_ceiling",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_ceiling_lit",
         "y": 180
       }
     },
@@ -299,7 +559,8 @@
     {
       "when": {
         "face": "ceiling",
-        "facing": "west"
+        "facing": "west",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_ceiling",
@@ -310,7 +571,19 @@
       "when": {
         "face": "ceiling",
         "facing": "west",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_ceiling_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "west",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_ceiling",
@@ -321,10 +594,35 @@
       "when": {
         "face": "ceiling",
         "facing": "west",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_ceiling_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_ceiling",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "ceiling",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_ceiling_lit",
         "y": 270
       }
     },
@@ -340,7 +638,8 @@
     {
       "when": {
         "face": "wall",
-        "facing": "west"
+        "facing": "west",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_wall"
@@ -350,7 +649,18 @@
       "when": {
         "face": "wall",
         "facing": "west",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_wall_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "west",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_wall"
@@ -360,7 +670,19 @@
       "when": {
         "face": "wall",
         "facing": "west",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_wall_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_wall"
@@ -369,6 +691,17 @@
     {
       "when": {
         "face": "wall",
+        "facing": "west",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_wall_lit"
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
         "facing": "north"
       },
       "apply": {
@@ -379,7 +712,8 @@
     {
       "when": {
         "face": "wall",
-        "facing": "north"
+        "facing": "north",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_wall",
@@ -390,7 +724,19 @@
       "when": {
         "face": "wall",
         "facing": "north",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_wall_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_wall",
@@ -401,10 +747,35 @@
       "when": {
         "face": "wall",
         "facing": "north",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_wall_lit",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_wall",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "north",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_wall_lit",
         "y": 90
       }
     },
@@ -421,7 +792,8 @@
     {
       "when": {
         "face": "wall",
-        "facing": "east"
+        "facing": "east",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_wall",
@@ -432,7 +804,19 @@
       "when": {
         "face": "wall",
         "facing": "east",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_wall_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "east",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_wall",
@@ -443,10 +827,35 @@
       "when": {
         "face": "wall",
         "facing": "east",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_wall_lit",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_wall",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "east",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_wall_lit",
         "y": 180
       }
     },
@@ -463,7 +872,8 @@
     {
       "when": {
         "face": "wall",
-        "facing": "south"
+        "facing": "south",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_overlay_wall",
@@ -474,7 +884,19 @@
       "when": {
         "face": "wall",
         "facing": "south",
-        "left_arrow": "true"
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_overlay_wall_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "south",
+        "left_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_left_wall",
@@ -485,10 +907,35 @@
       "when": {
         "face": "wall",
         "facing": "south",
-        "right_arrow": "true"
+        "left_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_left_wall_lit",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "false"
       },
       "apply": {
         "model": "oshaa:block/exit_sign_arrow_right_wall",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "face": "wall",
+        "facing": "south",
+        "right_arrow": "true",
+        "lit": "true"
+      },
+      "apply": {
+        "model": "oshaa:block/exit_sign_arrow_right_wall_lit",
         "y": 270
       }
     }

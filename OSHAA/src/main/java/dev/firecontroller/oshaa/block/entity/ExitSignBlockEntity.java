@@ -12,9 +12,9 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -25,12 +25,14 @@ public class ExitSignBlockEntity extends BlockEntity {
 
     public static final int DEFAULT_COLOR = DyeColor.RED.getTextureDiffuseColor() & 0x00FFFFFF;
 
+    private static final int OPERATING_INTERVAL = 127; /* How many ticks before energy is consumed during operation? */
+    private static final int OPERATING_ENERGY = 1; /* How much energy is consumed per interval? */
+
     private static final String TAG_ENERGY = "Energy";
     private static final String TAG_COLOR = "Color";
 
     private final OAEnergyStorage energyStorage;
 
-    private byte counter;
     private int color;
 
     /**
@@ -40,10 +42,7 @@ public class ExitSignBlockEntity extends BlockEntity {
      */
     public ExitSignBlockEntity(BlockPos pos, BlockState blockState) {
         super(OABlockEntities.EXIT_SIGN.get(), pos, blockState);
-
-        energyStorage = new OAEnergyStorage(12, 5, 0, 1, 0);
-
-        counter = 0;
+        energyStorage = new OAEnergyStorage(12, 5, 0, 1, 0, this::onEnergyChanged);
         color = DEFAULT_COLOR;
     }
 
@@ -96,6 +95,15 @@ public class ExitSignBlockEntity extends BlockEntity {
         }
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level instanceof ServerLevel serverLevel) {
+            updateLitState(serverLevel);
+            ensureOperatingTick();
+        }
+    }
+
     public IEnergyStorage getEnergyStorage() {
         return energyStorage;
     }
@@ -115,19 +123,41 @@ public class ExitSignBlockEntity extends BlockEntity {
         return true;
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, ExitSignBlockEntity blockEntity) {
-        blockEntity.counter++;
-        if (blockEntity.counter == 127) {
-            blockEntity.counter = 0;
-        } else {
-            return;
+    public void consumeOperatingEnergy() {
+        if (!(level instanceof ServerLevel)) return;
+        energyStorage.consumeEnergy(OPERATING_ENERGY, false);
+    }
+
+    private void onEnergyChanged() {
+        setChanged();
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        updateLitState(serverLevel);
+        ensureOperatingTick();
+    }
+
+    /**
+     * Checks if the block already has a scheduled tick and,
+     * if not, assigns one.
+     */
+    private void ensureOperatingTick() {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        if (energyStorage.getEnergyStored() <= 0) return;
+        BlockState state = level.getBlockState(worldPosition);
+        if (!serverLevel.getBlockTicks().hasScheduledTick(worldPosition, state.getBlock())) {
+            serverLevel.scheduleTick(worldPosition, state.getBlock(), OPERATING_INTERVAL);
         }
-        boolean lit = state.getValue(ExitSignBlock.LIT);
-        int consumed = blockEntity.energyStorage.consumeEnergy(1, false);
-        if (consumed > 0 && !lit) {
-            level.setBlockAndUpdate(pos, state.setValue(ExitSignBlock.LIT, true));
-        } else if (consumed == 0 && lit) {
-            level.setBlockAndUpdate(pos, state.setValue(ExitSignBlock.LIT, false));
+    }
+
+    /***
+     * Checks against the current energy level and
+     * updates the block's LIT state accordingly.
+     * @param serverLevel The server level to perform the update on.
+     */
+    private void updateLitState(ServerLevel serverLevel) {
+        BlockState state = getBlockState();
+        boolean shouldBeLit = energyStorage.getEnergyStored() > 0;
+        if (state.getValue(ExitSignBlock.LIT) != shouldBeLit) {
+            serverLevel.setBlockAndUpdate(worldPosition, state.setValue(ExitSignBlock.LIT, shouldBeLit));
         }
     }
 

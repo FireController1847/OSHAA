@@ -1,0 +1,73 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "overlay_left": "oshaa:block/exit_sign_arrow_left_lit",
+    "overlay_right": "oshaa:block/exit_sign_arrow_right_lit",
+    "particle": "oshaa:block/exit_sign"
+  },
+  "elements": [
+    {
+      "name": "Front",
+      "from": [
+        12.5,
+        7,
+        6.98
+      ],
+      "to": [
+        14,
+        9.5,
+        6.99
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay_left",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    },
+    {
+      "name": "Back",
+      "from": [
+        12.5,
+        7,
+        9.01
+      ],
+      "to": [
+        14,
+        9.5,
+        9.02
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay_right",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    }
+  ]
+}
