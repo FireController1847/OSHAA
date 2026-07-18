@@ -1,0 +1,62 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "overlay": "oshaa:block/exit_sign_overlay",
+    "particle": "oshaa:block/exit_sign"
+  },
+  "elements": [
+    {
+      "name": "Front",
+      "from": [
+        1.50,
+        6.0,
+        6.98
+      ],
+      "to": [
+        12.0,
+        11.0,
+        6.99
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "tintindex": 0
+        }
+      }
+    },
+    {
+      "name": "Back",
+      "from": [
+        2.0,
+        6.0,
+        9.01
+      ],
+      "to": [
+        12.50,
+        11.0,
+        9.02
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

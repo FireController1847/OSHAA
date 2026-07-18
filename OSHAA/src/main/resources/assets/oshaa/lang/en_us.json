@@ -1,3 +1,12 @@
 {
+  "oshaa.configuration.title": "OSHAA Configuration",
+  "oshaa.configuration.section.oshaa.server.toml": "Server Configuration",
+  "oshaa.configuration.section.oshaa.server.toml.title": "OSHAA Server Configuration",
+  "oshaa.configuration.energy": "Energy",
+  "oshaa.configuration.energy.button": "Configure",
+  "oshaa.configuration.energy.tooltip": "Configuration options for Forge Energy (FE) functionality.",
+  "oshaa.configuration.energy.enabled": "Enabled",
+  "oshaa.configuration.energy.enabled.tooltip": "When disabled, functional decorations will work without requiring energy.",
+  "item.oshaa.safety_binder": "Safety Binder",
   "block.oshaa.exit_sign": "Exit Sign"
 }

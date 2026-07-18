@@ -1,6 +1,6 @@
 package dev.firecontroller.oshaa;
 
-import dev.firecontroller.oshaa.blocks.ExitSignBlock;
+import dev.firecontroller.oshaa.block.ExitSignBlock;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

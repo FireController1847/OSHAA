@@ -5,7 +5,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +29,9 @@ public final class OSHAA {
 
         OABlocks.BLOCKS.register(bus);
         OAItems.ITEMS.register(bus);
+        OABlockEntities.BLOCK_ENTITIES.register(bus);
+
+        container.registerConfig(ModConfig.Type.SERVER, OAConfig.SERVER_SPEC);
     }
 
     /**
@@ -36,6 +42,12 @@ public final class OSHAA {
         LOGGER.info("This installation is OSHA Approved ✓");
     }
 
+    @SubscribeEvent
+    private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        // EXIT_SIGN
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, OABlockEntities.EXIT_SIGN.get(), (blockEntity, side) -> blockEntity.getEnergyStorage());
+    }
+
     /**
      * Event handler for the {@link BuildCreativeModeTabContentsEvent}.
      */
@@ -44,6 +56,7 @@ public final class OSHAA {
         // TODO: Temporary! We need to register our own creative tab.
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(OAItems.EXIT_SIGN.get());
+            event.accept(OAItems.SAFETY_BINDER.get());
         }
     }
 
