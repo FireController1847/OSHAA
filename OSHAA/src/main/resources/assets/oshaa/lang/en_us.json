@@ -84,6 +84,7 @@
   "oshaa.configuration.bulbs.led.capacity": "Capacity",
   "oshaa.configuration.bulbs.led.capacity.tooltip": "FE capacity required for at least 60 seconds of operation.",
   "item.oshaa.safety_binder": "Safety Binder",
+  "item.oshaa.electricians_glove": "Electrician's Glove",
   "item.oshaa.carbon_arc_bulb": "Carbon Arc Bulb",
   "item.oshaa.incandescent_bulb": "Incandescent Bulb",
   "item.oshaa.halogen_bulb": "Halogen Bulb",

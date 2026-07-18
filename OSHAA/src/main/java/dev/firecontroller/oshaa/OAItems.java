@@ -1,5 +1,6 @@
 package dev.firecontroller.oshaa;
 
+import dev.firecontroller.oshaa.item.ElectriciansGloveItem;
 import dev.firecontroller.oshaa.item.SafetyBinderItem;
 import dev.firecontroller.oshaa.item.bulbs.CarbonArcBulbItem;
 import dev.firecontroller.oshaa.item.bulbs.FluorescentBulbItem;
@@ -25,6 +26,7 @@ public final class OAItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(OSHAA.MOD_ID);
 
     public static final Supplier<Item> SAFETY_BINDER = ITEMS.registerItem("safety_binder", SafetyBinderItem::new);
+    public static final Supplier<Item> ELECTRICIANS_GLOVE = ITEMS.registerItem("electricians_glove", ElectriciansGloveItem::new);
 
     public static final Supplier<Item> CARBON_ARC_BULB = ITEMS.registerItem("carbon_arc_bulb", CarbonArcBulbItem::new);
     public static final Supplier<Item> INCANDESCENT_BULB = ITEMS.registerItem("incandescent_bulb", IncandescentBulbItem::new);

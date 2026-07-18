@@ -20,6 +20,7 @@ public final class OACreativeTabs {
                 .icon(() -> new ItemStack(OAItems.INCANDESCENT_BULB.get()))
                 .displayItems((parameters, output) -> {
                     output.accept(OAItems.SAFETY_BINDER.get());
+                    output.accept(OAItems.ELECTRICIANS_GLOVE.get());
 
                     output.accept(OAItems.CARBON_ARC_BULB.get());
                     output.accept(OAItems.INCANDESCENT_BULB.get());
