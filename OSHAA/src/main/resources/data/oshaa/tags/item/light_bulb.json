@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "oshaa:carbon_arc_bulb",
+    "oshaa:incandescent_bulb",
+    "oshaa:halogen_bulb",
+    "oshaa:xenon_arc_bulb",
+    "oshaa:mercury_vapor_bulb",
+    "oshaa:fluorescent_bulb",
+    "oshaa:induction_bulb",
+    "oshaa:metal_halide_bulb",
+    "oshaa:high_pressure_sodium_bulb",
+    "oshaa:led_bulb"
+  ]
+}
