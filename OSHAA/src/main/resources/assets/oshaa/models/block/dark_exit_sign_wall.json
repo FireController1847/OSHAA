@@ -1,0 +1,7 @@
+{
+  "parent": "oshaa:block/light_exit_sign_wall",
+  "textures": {
+    "0": "oshaa:block/dark_exit_sign",
+    "particle": "oshaa:block/dark_exit_sign"
+  }
+}

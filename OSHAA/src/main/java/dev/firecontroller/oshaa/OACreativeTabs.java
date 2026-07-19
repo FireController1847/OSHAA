@@ -33,7 +33,8 @@ public final class OACreativeTabs {
                     output.accept(OAItems.HIGH_PRESSURE_SODIUM_BULB.get());
                     output.accept(OAItems.LED_BULB.get());
 
-                    output.accept(OAItems.EXIT_SIGN.get());
+                    output.accept(OAItems.LIGHT_EXIT_SIGN.get());
+                    output.accept(OAItems.DARK_EXIT_SIGN.get());
                 })
             .build()
     );

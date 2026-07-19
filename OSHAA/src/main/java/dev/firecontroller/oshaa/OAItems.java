@@ -39,7 +39,8 @@ public final class OAItems {
     public static final Supplier<Item> HIGH_PRESSURE_SODIUM_BULB = ITEMS.registerItem("high_pressure_sodium_bulb", HighPressureSodiumBulbItem::new);
     public static final Supplier<Item> LED_BULB = ITEMS.registerItem("led_bulb", LedBulbItem::new);
 
-    public static final Supplier<BlockItem> EXIT_SIGN = ITEMS.registerSimpleBlockItem("exit_sign", OABlocks.EXIT_SIGN);
+    public static final Supplier<BlockItem> LIGHT_EXIT_SIGN = ITEMS.registerSimpleBlockItem("light_exit_sign", OABlocks.LIGHT_EXIT_SIGN);
+    public static final Supplier<BlockItem> DARK_EXIT_SIGN = ITEMS.registerSimpleBlockItem("dark_exit_sign", OABlocks.DARK_EXIT_SIGN);
 
     private OAItems() {
         // ...

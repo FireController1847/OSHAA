@@ -3,7 +3,7 @@
   "render_type": "minecraft:cutout",
   "textures": {
     "overlay": "oshaa:block/exit_sign_overlay",
-    "particle": "oshaa:block/exit_sign"
+    "particle": "oshaa:block/light_exit_sign"
   },
   "elements": [
     {

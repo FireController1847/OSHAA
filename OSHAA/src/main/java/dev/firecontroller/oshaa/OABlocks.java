@@ -13,7 +13,8 @@ public final class OABlocks {
      */
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(OSHAA.MOD_ID);
 
-    public static final Supplier<Block> EXIT_SIGN = BLOCKS.registerBlock("exit_sign", ExitSignBlock::new);
+    public static final Supplier<Block> LIGHT_EXIT_SIGN = BLOCKS.registerBlock("light_exit_sign", ExitSignBlock::new);
+    public static final Supplier<Block> DARK_EXIT_SIGN = BLOCKS.registerBlock("dark_exit_sign", ExitSignBlock::new);
 
     private OABlocks() {
         // ...

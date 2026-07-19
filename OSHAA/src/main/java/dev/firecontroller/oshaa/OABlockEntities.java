@@ -14,7 +14,11 @@ public final class OABlockEntities {
      */
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, OSHAA.MOD_ID);
 
-    public static final Supplier<BlockEntityType<ExitSignBlockEntity>> EXIT_SIGN = BLOCK_ENTITIES.register("exit_sign", () -> BlockEntityType.Builder.of(ExitSignBlockEntity::new, OABlocks.EXIT_SIGN.get()).build(null));
+    public static final Supplier<BlockEntityType<ExitSignBlockEntity>> EXIT_SIGN = BLOCK_ENTITIES.register("exit_sign", () -> BlockEntityType.Builder.of(
+        ExitSignBlockEntity::new,
+        OABlocks.LIGHT_EXIT_SIGN.get(),
+        OABlocks.DARK_EXIT_SIGN.get()
+    ).build(null));
 
     private OABlockEntities() {
         // ...

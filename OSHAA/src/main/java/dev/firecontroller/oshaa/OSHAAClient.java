@@ -35,7 +35,7 @@ public final class OSHAAClient {
                 return 0xFF000000 | exitSign.getColor();
             }
             return 0xFF000000 | ExitSignBlockEntity.DEFAULT_COLOR;
-        }, OABlocks.EXIT_SIGN.get());
+        }, OABlocks.LIGHT_EXIT_SIGN.get(), OABlocks.DARK_EXIT_SIGN.get());
     }
 
     /**
@@ -48,7 +48,7 @@ public final class OSHAAClient {
             if (tintIndex != 0) return 0xFFFFFFFF;
             int color = DyedItemColor.getOrDefault(stack, ExitSignBlockEntity.DEFAULT_COLOR);
             return 0xFF000000 | (color & 0x00FFFFFF);
-        }, OAItems.EXIT_SIGN.get());
+        }, OAItems.LIGHT_EXIT_SIGN.get(), OAItems.DARK_EXIT_SIGN.get());
     }
 
 }

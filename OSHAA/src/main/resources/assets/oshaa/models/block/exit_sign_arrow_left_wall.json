@@ -4,7 +4,7 @@
   "textures": {
     "overlay_left": "oshaa:block/exit_sign_arrow_left",
     "overlay_right": "oshaa:block/exit_sign_arrow_right",
-    "particle": "oshaa:block/exit_sign"
+    "particle": "oshaa:block/light_exit_sign"
   },
   "elements": [
     {

@@ -57,6 +57,8 @@
   "item.oshaa.metal_halide_bulb": "Metal Halide Bulb",
   "item.oshaa.high_pressure_sodium_bulb": "High-Pressure Sodium Bulb",
   "item.oshaa.led_bulb": "LED Bulb",
-  "block.oshaa.exit_sign": "Exit Sign",
-  "itemGroup.oshaa.main": "OSHA Approved \u2713"
+  "block.oshaa.light_exit_sign": "Light Exit Sign",
+  "block.oshaa.dark_exit_sign": "Dark Exit Sign",
+  "itemGroup.oshaa.main": "OSHA Approved \u2713",
+  "tooltip.oshaa.energy_usage": "Energy Usage: %s"
 }

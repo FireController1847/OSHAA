@@ -1,1 +1,73 @@
-{"meta":{"format_version":"5.0","model_format":"java_block","box_uv":false},"name":"exit_sign_item","parent":"","java_block_version":"1.9.0","ambientocclusion":true,"front_gui_light":false,"visible_box":[1,1,0],"variable_placeholders":"","multi_file_ruleset":"","variable_placeholder_buttons":[],"unhandled_root_fields":{},"resolution":{"width":32,"height":32},"elements":[{"name":"Frame","box_uv":false,"render_order":"default","rescale":false,"locked":false,"shade":true,"light_emission":0,"export":true,"scope":0,"allow_mirror_modeling":true,"from":[1,7,7],"to":[15,14,9],"autouv":0,"color":0,"origin":[14,7,7],"faces":{"north":{"uv":[0,0,14,7],"texture":0},"east":{"uv":[2,18,4,25],"texture":0},"south":{"uv":[0,7,14,14],"texture":0},"west":{"uv":[0,18,2,25],"texture":0},"up":{"uv":[0,16,14,18],"texture":0},"down":{"uv":[0,14,14,16],"texture":0}},"type":"cube","uuid":"e4589518-1c5c-2814-5495-7ee77d58ebf3"},{"name":"Support","box_uv":false,"render_order":"default","rescale":false,"locked":false,"shade":true,"light_emission":0,"export":true,"scope":0,"allow_mirror_modeling":true,"from":[5,14,7.5],"to":[11,15,8.5],"autouv":0,"color":5,"origin":[1,14,7],"faces":{"north":{"uv":[14,0,20,1],"texture":0},"east":{"uv":[15,4,16,5],"texture":0},"south":{"uv":[14,1,20,2],"texture":0},"west":{"uv":[14,4,15,5],"texture":0},"up":{"uv":[14,3,20,4],"texture":0},"down":{"uv":[14,2,20,3],"texture":0}},"type":"cube","uuid":"c11b986b-2f02-ef1e-30d4-776e29becdd8"},{"name":"Attachment","box_uv":false,"render_order":"default","rescale":false,"locked":false,"shade":true,"light_emission":0,"export":true,"scope":0,"allow_mirror_modeling":true,"from":[4,15,6],"to":[12,16,10],"autouv":0,"color":5,"origin":[10,15,7],"faces":{"north":{"uv":[12,19,20,20],"texture":0},"east":{"uv":[12,18,16,19],"texture":0},"south":{"uv":[12,20,20,21],"texture":0},"west":{"uv":[12,21,16,22],"texture":0},"up":{"uv":[4,18,12,22],"texture":0},"down":{"uv":[4,22,12,26],"texture":0}},"type":"cube","uuid":"e7c0cc65-d3b3-6044-38ad-57614998e9b4"}],"groups":[],"outliner":["e4589518-1c5c-2814-5495-7ee77d58ebf3","c11b986b-2f02-ef1e-30d4-776e29becdd8","e7c0cc65-d3b3-6044-38ad-57614998e9b4"],"textures":[{"name":"exit_sign_item.png","relative_path":"../../textures/block/exit_sign_item.png","folder":"block","namespace":"oshaa","id":"0","group":"","scope":0,"width":64,"height":64,"uv_width":32,"uv_height":32,"particle":true,"use_as_default":false,"layers_enabled":false,"sync_to_project":"","file_format":"png","render_mode":"default","render_sides":"auto","wrap_mode":"limited","pbr_channel":"color","fps":7,"frame_time":1,"frame_order_type":"loop","frame_order":"","frame_interpolate":false,"visible":true,"internal":true,"saved":true,"uuid":"fbc34df3-4e8d-3c69-3223-f86c3ae10a84","source":"data:image/png;base64,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"}],"display":{"thirdperson_righthand":{"rotation":[12,-2,-180],"translation":[-0.5,7.25,1.75]},"thirdperson_lefthand":{"rotation":[12,-2,180],"translation":[-0.5,7.25,1.75]},"firstperson_righthand":{"rotation":[-17,0,0]},"firstperson_lefthand":{"rotation":[-17,0,0]},"gui":{"translation":[0,-3,0]},"head":{"rotation":[0,0,180],"translation":[0,14,0]},"fixed":{"translation":[0,-3.5,0]}}}
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "overlay_left": "oshaa:block/exit_sign_arrow_left_lit",
+    "overlay_right": "oshaa:block/exit_sign_arrow_right_lit",
+    "particle": "oshaa:block/light_exit_sign"
+  },
+  "elements": [
+    {
+      "name": "Front",
+      "from": [
+        12.5,
+        7,
+        6.98
+      ],
+      "to": [
+        14,
+        9.5,
+        6.99
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay_left",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    },
+    {
+      "name": "Back",
+      "from": [
+        12.5,
+        7,
+        9.01
+      ],
+      "to": [
+        14,
+        9.5,
+        9.02
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay_right",
+          "tintindex": 0
+        }
+      },
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      }
+    }
+  ]
+}

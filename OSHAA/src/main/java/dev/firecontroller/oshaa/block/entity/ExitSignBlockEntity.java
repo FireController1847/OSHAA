@@ -2,7 +2,6 @@ package dev.firecontroller.oshaa.block.entity;
 
 import dev.firecontroller.oshaa.OABlockEntities;
 import dev.firecontroller.oshaa.OATags;
-import dev.firecontroller.oshaa.api.OAEnergyStorage;
 import dev.firecontroller.oshaa.block.ExitSignBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -151,7 +150,7 @@ public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
      */
     private void updateEnergyStorage() {
         if (!(level instanceof ServerLevel)) return;
-        this.energyStorage = new OAEnergyStorage(getRequiredStorageForTime(SURVIVAL_TIME), Integer.MAX_VALUE, 0, Integer.MAX_VALUE, this.energyStorage.getEnergyStored(), this::onEnergyChanged);
+        this.energyStorage.setCapacity(getRequiredStorageForTime(SURVIVAL_TIME));
     }
 
     public int getColor() {

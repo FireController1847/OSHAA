@@ -84,6 +84,20 @@ public class OAEnergyStorage extends EnergyStorage {
         return extracted;
     }
 
+    public void setCapacity(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Capacity cannot be negative.");
+        }
+        if (this.capacity == capacity) return;
+
+        this.capacity = capacity;
+        this.energy = Math.min(this.energy, capacity);
+
+        if (this.onChanged != null) {
+            this.onChanged.run();
+        }
+    }
+
     public void setEnergyStored(int energy) {
         this.energy = energy;
         if (onChanged != null) onChanged.run();
