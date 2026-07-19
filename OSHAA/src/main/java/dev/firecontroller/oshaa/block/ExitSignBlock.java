@@ -3,6 +3,7 @@ package dev.firecontroller.oshaa.block;
 import com.mojang.serialization.MapCodec;
 import dev.firecontroller.oshaa.OAUtil;
 import dev.firecontroller.oshaa.block.entity.ExitSignBlockEntity;
+import dev.firecontroller.oshaa.item.ElectriciansGloveItem;
 import dev.firecontroller.oshaa.item.SafetyBinderItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -120,23 +121,25 @@ public class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
             }
 
             return ItemInteractionResult.SUCCESS;
-        } else if (stack.getItem() instanceof SafetyBinderItem safetyBinderItem) {
+        } else if (stack.getItem() instanceof SafetyBinderItem) {
             if (level.isClientSide) return ItemInteractionResult.SUCCESS;
 
-            BlockState nextState;
-            if (player.isShiftKeyDown()) {
-                nextState = state.cycle (LIT);
-            } else {
-                boolean left = state.getValue(LEFT_ARROW);
-                boolean right = state.getValue(RIGHT_ARROW);
-                int current = (left ? 1 : 0) | (right ? 2 : 0);
-                int next = (current + 1) & 3;
-                nextState = state
-                        .setValue(LEFT_ARROW, (next & 1) != 0)
-                        .setValue(RIGHT_ARROW, (next & 2) != 0);
-            }
+            boolean left = state.getValue(LEFT_ARROW);
+            boolean right = state.getValue(RIGHT_ARROW);
+            int current = (left ? 1 : 0) | (right ? 2 : 0);
+            int next = (current + 1) & 3;
+            BlockState newState = state.setValue(LEFT_ARROW, (next & 1) != 0).setValue(RIGHT_ARROW, (next & 2) != 0);
 
-            level.setBlockAndUpdate(pos, nextState);
+            level.setBlockAndUpdate(pos, newState);
+            return ItemInteractionResult.SUCCESS;
+        } else if (stack.getItem() instanceof ElectriciansGloveItem) {
+            if (!(level.getBlockEntity(pos) instanceof ExitSignBlockEntity exitSignBlockEntity)) {
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            }
+            if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+
+            player.openMenu(exitSignBlockEntity);
+
             return ItemInteractionResult.SUCCESS;
         }
 
@@ -157,13 +160,15 @@ public class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new ExitSignBlockEntity(pos, state);
+        ExitSignBlockEntity exitSignBlockEntity = new ExitSignBlockEntity(pos, state);
+        exitSignBlockEntity.setOperating(true);
+        return exitSignBlockEntity;
     }
 
     @Override
     protected void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!(level.getBlockEntity(pos) instanceof ExitSignBlockEntity exitSignBlockEntity)) return;
-        exitSignBlockEntity.consumeOperatingEnergy();
+        exitSignBlockEntity.consumeEnergy();
     }
 
     private static VoxelShape getShape(BlockState state) {

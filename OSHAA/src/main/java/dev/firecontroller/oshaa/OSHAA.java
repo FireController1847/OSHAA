@@ -30,7 +30,7 @@ public final class OSHAA {
         OABlockEntities.BLOCK_ENTITIES.register(bus);
         OACreativeTabs.CREATIVE_TABS.register(bus);
 
-        container.registerConfig(ModConfig.Type.SERVER, OAConfig.SERVER_SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, OAConfig.COMMON_SPEC);
     }
 
     /**

@@ -6,7 +6,6 @@ import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
 import net.minecraft.world.item.Item;
 
 public class LedBulbItem extends Item implements OAIEnergyConsumer {
-    protected OAEnergyProfile energyProfile;
 
     /**
      * Constructs a new {@link LedBulbItem}.
@@ -14,12 +13,11 @@ public class LedBulbItem extends Item implements OAIEnergyConsumer {
      */
     public LedBulbItem(Properties properties) {
         super(properties);
-        energyProfile = new OAEnergyProfile(OAConfig.bulbsLedConsumption.get());
     }
 
     @Override
     public OAEnergyProfile getEnergyProfile() {
-        return energyProfile;
+        return new OAEnergyProfile(OAConfig.bulbsLedConsumption.get());
     }
 
 }

@@ -6,7 +6,6 @@ import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
 import net.minecraft.world.item.Item;
 
 public class HalogenBulbItem extends Item implements OAIEnergyConsumer {
-    protected OAEnergyProfile energyProfile;
 
     /**
      * Constructs a new {@link HalogenBulbItem}.
@@ -14,12 +13,11 @@ public class HalogenBulbItem extends Item implements OAIEnergyConsumer {
      */
     public HalogenBulbItem(Properties properties) {
         super(properties);
-        energyProfile = new OAEnergyProfile(OAConfig.bulbsHalogenConsumption.get());
     }
 
     @Override
     public OAEnergyProfile getEnergyProfile() {
-        return energyProfile;
+        return new OAEnergyProfile(OAConfig.bulbsHalogenConsumption.get());
     }
 
 }

@@ -1,7 +1,7 @@
 package dev.firecontroller.oshaa.block.entity;
 
 import dev.firecontroller.oshaa.OABlockEntities;
-import dev.firecontroller.oshaa.api.OAEnergyStorage;
+import dev.firecontroller.oshaa.OATags;
 import dev.firecontroller.oshaa.block.ExitSignBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -9,54 +9,57 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class ExitSignBlockEntity extends BlockEntity {
+public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
 
     public static final int DEFAULT_COLOR = DyeColor.RED.getTextureDiffuseColor() & 0x00FFFFFF;
 
-    private static final int OPERATING_INTERVAL = 127; /* How many ticks before energy is consumed during operation? */
-    private static final int OPERATING_ENERGY = 1; /* How much energy is consumed per interval? */
-
-    private static final String TAG_ENERGY = "Energy";
     private static final String TAG_COLOR = "Color";
-
-    private final OAEnergyStorage energyStorage;
 
     private int color;
 
     /**
-     * Constructs a new {@link ExitSignBlockEntity}.
-     * @param pos The position of the block entity.
-     * @param blockState The current state of the entity's block.
+     * Constructs a new {@link EnergyConsumerBlockEntityBase}.
      */
     public ExitSignBlockEntity(BlockPos pos, BlockState blockState) {
-        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState);
-        energyStorage = new OAEnergyStorage(12, 5, 0, 1, 0, this::onEnergyChanged);
+//        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 2, 12, 5, 0, 1, 0);
+        // TODO: temp 9 slots
+        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 9, 12, 5, 0, 1, 0);
         color = DEFAULT_COLOR;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level instanceof ServerLevel serverLevel) {
+            updateLitState(serverLevel);
+        }
     }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putInt(TAG_ENERGY, energyStorage.getEnergyStored());
         tag.putInt(TAG_COLOR, color);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        energyStorage.setEnergyStored(tag.getInt(TAG_ENERGY));
         color = tag.contains(TAG_COLOR) ? tag.getInt(TAG_COLOR) & 0x00FFFFFF : DEFAULT_COLOR;
     }
 
@@ -68,7 +71,7 @@ public class ExitSignBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void collectImplicitComponents(@NotNull DataComponentMap.Builder components) {
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
         if (color != DEFAULT_COLOR) {
             components.set(DataComponents.DYED_COLOR, new DyedItemColor(color, false));
@@ -76,7 +79,7 @@ public class ExitSignBlockEntity extends BlockEntity {
     }
 
     @Override
-    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
@@ -96,16 +99,36 @@ public class ExitSignBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-        if (level instanceof ServerLevel serverLevel) {
-            updateLitState(serverLevel);
-            ensureOperatingTick();
-        }
+    protected boolean isConsumerItemValid(int slot, @NotNull ItemStack stack) {
+        return stack.is(OATags.Items.LIGHT_BULB);
     }
 
-    public IEnergyStorage getEnergyStorage() {
-        return energyStorage;
+    @Override
+    protected void onEnergyChanged() {
+        super.onEnergyChanged();
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        updateLitState(serverLevel);
+    }
+
+    /**
+     * Checks against the current energy level and
+     * updates the block's LIT state accordingly.
+     * @param serverLevel The server level to perform the update on.
+     */
+    private void updateLitState(ServerLevel serverLevel) {
+        BlockState state = getBlockState();
+        boolean shouldBeLit = energyStorage.getEnergyStored() > 0;
+        for (int i = 0; i < 2; i++) { // minimum 2 bulbs to be lit
+            ItemStack stack = consumerInventory.getStackInSlot(i);
+            if (stack.isEmpty()) {
+                // Missing a bulb? Can't be lit :(
+                shouldBeLit = false;
+                break;
+            }
+        }
+        if (state.getValue(ExitSignBlock.LIT) != shouldBeLit) {
+            serverLevel.setBlockAndUpdate(worldPosition, state.setValue(ExitSignBlock.LIT, shouldBeLit));
+        }
     }
 
     public int getColor() {
@@ -123,42 +146,22 @@ public class ExitSignBlockEntity extends BlockEntity {
         return true;
     }
 
-    public void consumeOperatingEnergy() {
-        if (!(level instanceof ServerLevel)) return;
-        energyStorage.consumeEnergy(OPERATING_ENERGY, false);
+    @Override
+    public @NotNull Component getDisplayName() {
+        // TODO: localize!
+        return Component.literal("TESTING: EXIT SIGN INVENTORY");
     }
 
-    private void onEnergyChanged() {
-        setChanged();
-        if (!(level instanceof ServerLevel serverLevel)) return;
-        updateLitState(serverLevel);
-        ensureOperatingTick();
-    }
-
-    /**
-     * Checks if the block already has a scheduled tick and,
-     * if not, assigns one.
-     */
-    private void ensureOperatingTick() {
-        if (!(level instanceof ServerLevel serverLevel)) return;
-        if (energyStorage.getEnergyStored() <= 0) return;
-        BlockState state = level.getBlockState(worldPosition);
-        if (!serverLevel.getBlockTicks().hasScheduledTick(worldPosition, state.getBlock())) {
-            serverLevel.scheduleTick(worldPosition, state.getBlock(), OPERATING_INTERVAL);
-        }
-    }
-
-    /***
-     * Checks against the current energy level and
-     * updates the block's LIT state accordingly.
-     * @param serverLevel The server level to perform the update on.
-     */
-    private void updateLitState(ServerLevel serverLevel) {
-        BlockState state = getBlockState();
-        boolean shouldBeLit = energyStorage.getEnergyStored() > 0;
-        if (state.getValue(ExitSignBlock.LIT) != shouldBeLit) {
-            serverLevel.setBlockAndUpdate(worldPosition, state.setValue(ExitSignBlock.LIT, shouldBeLit));
-        }
+    @Override
+    public AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory, @NotNull Player player) {
+        // TODO: custom menu!
+        return new ChestMenu(
+            MenuType.GENERIC_9x1,
+            containerId,
+            playerInventory,
+            this,
+            1
+        );
     }
 
 }

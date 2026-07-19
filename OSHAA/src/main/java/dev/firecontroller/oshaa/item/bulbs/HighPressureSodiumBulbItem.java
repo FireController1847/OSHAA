@@ -6,7 +6,6 @@ import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
 import net.minecraft.world.item.Item;
 
 public class HighPressureSodiumBulbItem extends Item implements OAIEnergyConsumer {
-    protected OAEnergyProfile energyProfile;
 
     /**
      * Constructs a new {@link HighPressureSodiumBulbItem}.
@@ -14,12 +13,11 @@ public class HighPressureSodiumBulbItem extends Item implements OAIEnergyConsume
      */
     public HighPressureSodiumBulbItem(Properties properties) {
         super(properties);
-        energyProfile = new OAEnergyProfile(OAConfig.bulbsHighPressureSodiumConsumption.get());
     }
 
     @Override
     public OAEnergyProfile getEnergyProfile() {
-        return energyProfile;
+        return new OAEnergyProfile(OAConfig.bulbsHighPressureSodiumConsumption.get());
     }
 
 }

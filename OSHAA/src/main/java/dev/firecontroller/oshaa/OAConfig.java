@@ -5,7 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 
 public final class OAConfig {
 
-    public static final ModConfigSpec SERVER_SPEC = OAConfig.buildServer();
+    public static final ModConfigSpec COMMON_SPEC = OAConfig.buildCommon();
 
     // Bulbs
     public static ConfigValue<Double> bulbsCarbonArcConsumption;
@@ -19,7 +19,7 @@ public final class OAConfig {
     public static ConfigValue<Double> bulbsHighPressureSodiumConsumption;
     public static ConfigValue<Double> bulbsLedConsumption;
 
-    private static ModConfigSpec buildServer() {
+    private static ModConfigSpec buildCommon() {
         // Create the builder
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -33,7 +33,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.carbon_arc");
         builder.push("Carbon Arc");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsCarbonArcConsumption = builder.define("Consumption", 6.4);
@@ -43,7 +43,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.incandescent");
         builder.push("Incandescent");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsIncandescentConsumption = builder.define("Consumption", 2.14);
@@ -53,7 +53,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.halogen");
         builder.push("Halogen");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsHalogenConsumption = builder.define("Consumption", 1.46);
@@ -63,7 +63,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.xenon_arc");
         builder.push("Xenon Arc");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsXenonArcConsumption = builder.define("Consumption", 1.06);
@@ -73,7 +73,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.mercury_vapor");
         builder.push("Mercury Vapor");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsMercuryVaporConsumption = builder.define("Consumption", 0.72);
@@ -83,7 +83,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.fluorescent");
         builder.push("Fluorescent");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsFluorescentConsumption = builder.define("Consumption", 0.44);
@@ -93,7 +93,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.induction");
         builder.push("Induction");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsInductionConsumption = builder.define("Consumption", 0.38);
@@ -103,7 +103,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.metal_halide");
         builder.push("Metal Halide");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsMetalHalideConsumption = builder.define("Consumption", 0.36);
@@ -113,7 +113,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.high_pressure_sodium");
         builder.push("High-Pressure Sodium");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsHighPressureSodiumConsumption = builder.define("Consumption", 0.30);
@@ -123,7 +123,7 @@ public final class OAConfig {
         builder.translation("oshaa.configuration.bulbs.led");
         builder.push("LED");
 
-        builder.worldRestart();
+        builder.gameRestart();
         builder.translation("oshaa.configuration.bulbs.consumption");
         builder.comment("The amount of FE/t consumed to energize this light bulb.");
         bulbsLedConsumption = builder.define("Consumption", 0.26);

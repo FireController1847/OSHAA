@@ -6,7 +6,6 @@ import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
 import net.minecraft.world.item.Item;
 
 public class IncandescentBulbItem extends Item implements OAIEnergyConsumer {
-    protected OAEnergyProfile energyProfile;
 
     /**
      * Constructs a new {@link IncandescentBulbItem}.
@@ -14,12 +13,11 @@ public class IncandescentBulbItem extends Item implements OAIEnergyConsumer {
      */
     public IncandescentBulbItem(Properties properties) {
         super(properties);
-        energyProfile = new OAEnergyProfile(OAConfig.bulbsIncandescentConsumption.get());
     }
 
     @Override
     public OAEnergyProfile getEnergyProfile() {
-        return energyProfile;
+        return new OAEnergyProfile(OAConfig.bulbsIncandescentConsumption.get());
     }
 
 }

@@ -8,6 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Container;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public abstract class EnergyConsumerBlockEntityBase extends BlockEntity {
+public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implements MenuProvider, Container {
 
     protected static final String TAG_ENERGY = "Energy";
     protected static final String TAG_CONSUMER_INVENTORY = "ConsumerInventory";
@@ -59,27 +62,6 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity {
         this.operating = false;
 
         recalculateEnergy();
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        recalculateEnergy();
-        ensureEnergyDrawTick();
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt(TAG_ENERGY, this.energyStorage.getEnergyStored());
-        tag.put(TAG_CONSUMER_INVENTORY, this.consumerInventory.serializeNBT(registries));
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.energyStorage.setEnergyStored(tag.getInt(TAG_ENERGY));
-        this.consumerInventory.deserializeNBT(registries, tag.getCompound(TAG_CONSUMER_INVENTORY));
     }
 
     public void consumeEnergy() {
@@ -179,6 +161,86 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity {
 
     public OAEnergyDraw getEnergyStandbyDraw() {
         return this.energyStandbyDraw;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        recalculateEnergy();
+        ensureEnergyDrawTick();
+    }
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putInt(TAG_ENERGY, this.energyStorage.getEnergyStored());
+        tag.put(TAG_CONSUMER_INVENTORY, this.consumerInventory.serializeNBT(registries));
+    }
+
+    @Override
+    protected void loadAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        this.energyStorage.setEnergyStored(tag.getInt(TAG_ENERGY));
+        this.consumerInventory.deserializeNBT(registries, tag.getCompound(TAG_CONSUMER_INVENTORY));
+    }
+
+    @Override
+    public int getContainerSize() {
+        return consumerInventory.getSlots();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for (int i = 0; i < this.consumerInventory.getSlots(); i++) {
+            if (!this.consumerInventory.getStackInSlot(i).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getItem(int slot) {
+        return this.consumerInventory.getStackInSlot(slot);
+    }
+
+    @Override
+    public @NotNull ItemStack removeItem(int slot, int amount) {
+        return this.consumerInventory.extractItem(slot, amount, false);
+    }
+
+    @Override
+    public @NotNull ItemStack removeItemNoUpdate(int slot) {
+        ItemStack stack = this.consumerInventory.getStackInSlot(slot);
+        this.consumerInventory.setStackInSlot(slot, ItemStack.EMPTY);
+        return stack;
+    }
+
+    @Override
+    public void setItem(int slot, @NotNull ItemStack stack) {
+        this.consumerInventory.setStackInSlot(slot, stack);
+    }
+
+    @Override
+    public boolean stillValid(@NotNull Player player) {
+        return Container.stillValidBlockEntity(this, player);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.consumerInventory.getSlots(); i++) {
+            this.consumerInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return this.consumerInventory.isItemValid(slot, stack);
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     public static OAEnergyDraw calculateEnergyDraw(double fePerTick) {
