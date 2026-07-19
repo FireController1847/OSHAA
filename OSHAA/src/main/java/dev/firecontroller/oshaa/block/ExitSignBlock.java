@@ -8,8 +8,6 @@ import dev.firecontroller.oshaa.item.SafetyBinderItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -160,15 +158,7 @@ public class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        ExitSignBlockEntity exitSignBlockEntity = new ExitSignBlockEntity(pos, state);
-        exitSignBlockEntity.setOperating(true);
-        return exitSignBlockEntity;
-    }
-
-    @Override
-    protected void tick(@NotNull BlockState state, ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (!(level.getBlockEntity(pos) instanceof ExitSignBlockEntity exitSignBlockEntity)) return;
-        exitSignBlockEntity.consumeEnergy();
+        return new ExitSignBlockEntity(pos, state);
     }
 
     private static VoxelShape getShape(BlockState state) {

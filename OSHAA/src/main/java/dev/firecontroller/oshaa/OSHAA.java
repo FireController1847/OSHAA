@@ -1,5 +1,6 @@
 package dev.firecontroller.oshaa;
 
+import dev.firecontroller.oshaa.api.OAEnergyScheduler;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -24,6 +25,7 @@ public final class OSHAA {
      */
     public OSHAA(IEventBus bus, ModContainer container) {
         bus.register(this);
+        OAEnergyScheduler.registerEventHandlers();
 
         OABlocks.BLOCKS.register(bus);
         OAItems.ITEMS.register(bus);

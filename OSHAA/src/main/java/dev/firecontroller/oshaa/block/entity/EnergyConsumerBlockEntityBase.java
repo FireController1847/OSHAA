@@ -1,6 +1,7 @@
 package dev.firecontroller.oshaa.block.entity;
 
 import dev.firecontroller.oshaa.api.OAEnergyDraw;
+import dev.firecontroller.oshaa.api.OAEnergyScheduler;
 import dev.firecontroller.oshaa.api.OAEnergyProfile;
 import dev.firecontroller.oshaa.api.OAEnergyStorage;
 import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
@@ -16,20 +17,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
-public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implements MenuProvider, Container {
+public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implements MenuProvider, Container, OAEnergyScheduler.ScheduledEnergyDraw {
 
     protected static final String TAG_ENERGY = "Energy";
     protected static final String TAG_CONSUMER_INVENTORY = "ConsumerInventory";
-
+    protected static final String TAG_OPERATING = "Operating";
     protected final ItemStackHandler consumerInventory;
-    protected final OAEnergyStorage energyStorage;
+    protected OAEnergyStorage energyStorage;
     private boolean operating;
 
     private OAEnergyProfile energyProfile;
@@ -64,33 +65,52 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
         recalculateEnergy();
     }
 
-    public void consumeEnergy() {
-        if (!(this.level instanceof ServerLevel)) return;
-        if (this.operating) {
-            if (this.energyOperatingDraw.draw() != 0) this.energyStorage.consumeEnergy(this.energyOperatingDraw.draw(), false);
-        } else {
-            if (this.energyStandbyDraw.draw() != 0) this.energyStorage.consumeEnergy(this.energyStandbyDraw.draw(), false);
+    @Override
+    public int handleScheduledEnergyDraw() {
+        OAEnergyDraw draw = getEnergyDraw();
+        if (draw.draw() <= 0 || draw.interval() <= 0) return 0;
+        this.energyStorage.consumeEnergy(draw.draw(), false);
+        if (this.energyStorage.getEnergyStored() <= 0) return 0;
+        OAEnergyDraw nextDraw = getEnergyDraw();
+        return nextDraw.draw() > 0 && nextDraw.interval() > 0 ? nextDraw.interval() : 0;
+    }
+
+    protected void ensureEnergyDrawScheduled() {
+        if (!(this.level instanceof ServerLevel serverLevel)) return;
+        OAEnergyDraw draw = getEnergyDraw();
+        if (this.energyStorage.getEnergyStored() <= 0 || draw.interval() <= 0 || draw.draw() <= 0) {
+            OAEnergyScheduler.cancel(serverLevel, this.worldPosition);
+            return;
         }
+        OAEnergyScheduler.ensureScheduled(serverLevel, this.worldPosition, draw.interval());
+    }
+
+    protected void restartEnergyDrawSchedule() {
+        if (!(this.level instanceof ServerLevel serverLevel)) return;
+        OAEnergyDraw draw = getEnergyDraw();
+        if (this.energyStorage.getEnergyStored() <= 0 || draw.interval() <= 0 || draw.draw() <= 0) {
+            OAEnergyScheduler.cancel(serverLevel, this.worldPosition);
+            return;
+        }
+        OAEnergyScheduler.restart(serverLevel, this.worldPosition, draw.interval());
     }
 
     protected abstract boolean isConsumerItemValid(int slot, @NotNull ItemStack stack);
 
     protected void onConsumerInventoryChanged(int slot) {
         recalculateEnergy();
-        ensureEnergyDrawTick();
     }
 
     protected void onEnergyChanged() {
         setChanged();
-        if (this.level instanceof ServerLevel) {
-            ensureEnergyDrawTick();
-        }
+        ensureEnergyDrawScheduled();
     }
 
     protected void recalculateEnergy() {
         recalculateEnergyProfile();
         recalculateEnergyDraw();
         setChanged();
+        restartEnergyDrawSchedule();
     }
 
     private void recalculateEnergyProfile() {
@@ -102,9 +122,9 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
             if (stack.isEmpty()) continue;
             if (stack.getItem() instanceof OAIEnergyConsumer energyConsumer) {
                 OAEnergyProfile energyConsumerProfile = energyConsumer.getEnergyProfile();
-                totalContinuous += energyConsumerProfile.continuous();
-                totalStandby += energyConsumerProfile.standby();
-                totalStartup += energyConsumerProfile.startup();
+                totalContinuous += energyConsumerProfile.continuous() * this.getConsumptionModifier();
+                totalStandby += energyConsumerProfile.standby() * this.getConsumptionModifier();
+                totalStartup += (int) Math.round(energyConsumerProfile.startup() * this.getConsumptionModifier());
             }
         }
         this.energyProfile = new OAEnergyProfile(totalContinuous, totalStandby, totalStartup);
@@ -115,36 +135,38 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
         this.energyStandbyDraw = calculateEnergyDraw(this.energyProfile.standby());
     }
 
-    /**
-     * Checks if the block has a scheduled tick and,
-     * if not, assigns one.
-     */
-    private void ensureEnergyDrawTick() {
-        if (!(this.level instanceof ServerLevel serverLevel)) return;
-        if (this.energyStorage.getEnergyStored() <= 0) return;
-        BlockState state = this.level.getBlockState(this.worldPosition);
-        if (!serverLevel.getBlockTicks().hasScheduledTick(this.worldPosition, state.getBlock())) {
-            if (this.operating) {
-                if (this.energyOperatingDraw.interval() != 0) serverLevel.scheduleTick(this.worldPosition, state.getBlock(), this.energyOperatingDraw.interval());
-            } else {
-                if (this.energyStandbyDraw.interval() != 0) serverLevel.scheduleTick(this.worldPosition, state.getBlock(), this.energyStandbyDraw.interval());
-            }
+    public int getRequiredStorageForTime(int seconds) {
+        if (seconds < 0) throw new IllegalArgumentException("Seconds cannot be negative.");
+        OAEnergyDraw draw = this.energyOperatingDraw;
+        if (draw.draw() == 0 || draw.interval() == 0) {
+            return 0;
         }
-    }
-
-    public IItemHandler getConsumerInventory() {
-        return this.consumerInventory;
+        long ticks = seconds * 20L;
+        long required = Math.ceilDiv(ticks * draw.draw(), draw.interval());
+        return Math.toIntExact(required);
     }
 
     public IEnergyStorage getEnergyStorage() {
         return this.energyStorage;
     }
 
-    public void setOperating(boolean operating) {
-        if (this.operating == operating) return;
+    /**
+     * Sets the entity as 'operating,' and returns true if successful.
+     * If the entity has a startup cost, it will be drawn. If not
+     * enough energy is available to start, this method will return false.
+     */
+    public boolean setOperating(boolean operating) {
+        if (this.operating == operating) return true;
+        int startup = operating ? this.energyProfile.startup() : 0;
+        if (startup > 0) {
+            int amount = this.energyStorage.consumeEnergy(startup, true);
+            if (amount < startup) return false;
+            this.energyStorage.consumeEnergy(startup, false);
+        }
         this.operating = operating;
         setChanged();
-        ensureEnergyDrawTick();
+        restartEnergyDrawSchedule();
+        return true;
     }
 
     public boolean isOperating() {
@@ -163,11 +185,26 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
         return this.energyStandbyDraw;
     }
 
+    public OAEnergyDraw getEnergyDraw() {
+        return this.operating ? this.energyOperatingDraw : this.energyStandbyDraw;
+    }
+
+    public double getConsumptionModifier() {
+        return 1.0;
+    }
+
     @Override
     public void onLoad() {
         super.onLoad();
         recalculateEnergy();
-        ensureEnergyDrawTick();
+    }
+
+    @Override
+    public void setRemoved() {
+        if (this.level instanceof ServerLevel serverLevel) {
+            OAEnergyScheduler.cancel(serverLevel, this.worldPosition);
+        }
+        super.setRemoved();
     }
 
     @Override
@@ -175,13 +212,17 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
         super.saveAdditional(tag, registries);
         tag.putInt(TAG_ENERGY, this.energyStorage.getEnergyStored());
         tag.put(TAG_CONSUMER_INVENTORY, this.consumerInventory.serializeNBT(registries));
+        tag.putBoolean(TAG_OPERATING, this.operating);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.energyStorage.setEnergyStored(tag.getInt(TAG_ENERGY));
+        if (tag.contains(TAG_OPERATING)) {
+            this.operating = tag.getBoolean(TAG_OPERATING);
+        }
         this.consumerInventory.deserializeNBT(registries, tag.getCompound(TAG_CONSUMER_INVENTORY));
+        this.energyStorage.setEnergyStored(tag.getInt(TAG_ENERGY));
     }
 
     @Override
@@ -246,7 +287,7 @@ public abstract class EnergyConsumerBlockEntityBase extends BlockEntity implemen
     public static OAEnergyDraw calculateEnergyDraw(double fePerTick) {
         if (!Double.isFinite(fePerTick) || fePerTick < 0.0) throw new IllegalArgumentException("Energy draw must be finite and non-negative.");
         if (fePerTick == 0.0) return new OAEnergyDraw(0, 0);
-        BigDecimal decimal = BigDecimal.valueOf(fePerTick).stripTrailingZeros();
+        BigDecimal decimal = BigDecimal.valueOf(fePerTick).setScale(4, RoundingMode.HALF_UP).stripTrailingZeros();
         BigInteger numerator = decimal.unscaledValue();
         int scale = decimal.scale();
         BigInteger denominator;

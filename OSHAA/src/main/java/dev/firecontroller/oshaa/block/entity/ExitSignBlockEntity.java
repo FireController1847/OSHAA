@@ -2,6 +2,7 @@ package dev.firecontroller.oshaa.block.entity;
 
 import dev.firecontroller.oshaa.OABlockEntities;
 import dev.firecontroller.oshaa.OATags;
+import dev.firecontroller.oshaa.api.OAEnergyStorage;
 import dev.firecontroller.oshaa.block.ExitSignBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -30,6 +31,7 @@ public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
     public static final int DEFAULT_COLOR = DyeColor.RED.getTextureDiffuseColor() & 0x00FFFFFF;
 
     private static final String TAG_COLOR = "Color";
+    private static final int SURVIVAL_TIME = 75; // OSHA 90 minutes maps roughly to 1m 15s in-game time
 
     private int color;
 
@@ -37,16 +39,18 @@ public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
      * Constructs a new {@link EnergyConsumerBlockEntityBase}.
      */
     public ExitSignBlockEntity(BlockPos pos, BlockState blockState) {
-//        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 2, 12, 5, 0, 1, 0);
+//        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 2, 0, 5, 0, 1, 0);
         // TODO: temp 9 slots
-        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 9, 12, 5, 0, 1, 0);
-        color = DEFAULT_COLOR;
+        super(OABlockEntities.EXIT_SIGN.get(), pos, blockState, 9, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 0);
+        this.color = DEFAULT_COLOR;
+        setOperating(true);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
         if (level instanceof ServerLevel serverLevel) {
+            updateEnergyStorage();
             updateLitState(serverLevel);
         }
     }
@@ -104,10 +108,21 @@ public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
     }
 
     @Override
+    protected void onConsumerInventoryChanged(int slot) {
+        super.onConsumerInventoryChanged(slot);
+        updateEnergyStorage();
+    }
+
+    @Override
     protected void onEnergyChanged() {
         super.onEnergyChanged();
         if (!(level instanceof ServerLevel serverLevel)) return;
         updateLitState(serverLevel);
+    }
+
+    @Override
+    public double getConsumptionModifier() {
+        return 0.4; /* 40% brightness, light level 6/15 */
     }
 
     /**
@@ -129,6 +144,14 @@ public final class ExitSignBlockEntity extends EnergyConsumerBlockEntityBase {
         if (state.getValue(ExitSignBlock.LIT) != shouldBeLit) {
             serverLevel.setBlockAndUpdate(worldPosition, state.setValue(ExitSignBlock.LIT, shouldBeLit));
         }
+    }
+
+    /**
+     * Recalculates the expected energy storage to meet minimum survival time.
+     */
+    private void updateEnergyStorage() {
+        if (!(level instanceof ServerLevel)) return;
+        this.energyStorage = new OAEnergyStorage(getRequiredStorageForTime(SURVIVAL_TIME), Integer.MAX_VALUE, 0, Integer.MAX_VALUE, this.energyStorage.getEnergyStored(), this::onEnergyChanged);
     }
 
     public int getColor() {
