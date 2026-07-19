@@ -4,7 +4,7 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 
 public class OAEnergyStorage extends EnergyStorage {
     protected int maxConsume;
-    private final Runnable onChanged;
+    protected Runnable onChanged;
 
     public OAEnergyStorage(int capacity) {
         super(capacity, capacity, capacity, 0);

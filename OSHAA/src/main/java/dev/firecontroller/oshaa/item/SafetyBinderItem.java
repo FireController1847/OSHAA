@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 
-public class SafetyBinderItem extends Item {
+public final class SafetyBinderItem extends Item {
 
     /**
      * Constructs a new {@link SafetyBinderItem}.

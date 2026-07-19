@@ -5,7 +5,7 @@ import dev.firecontroller.oshaa.api.OAEnergyProfile;
 import dev.firecontroller.oshaa.api.OAIEnergyConsumer;
 import net.minecraft.world.item.Item;
 
-public class MetalHalideBulbItem extends Item implements OAIEnergyConsumer {
+public final class MetalHalideBulbItem extends Item implements OAIEnergyConsumer {
 
     /**
      * Constructs a new {@link MetalHalideBulbItem}.

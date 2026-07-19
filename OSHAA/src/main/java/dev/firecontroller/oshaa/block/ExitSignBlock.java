@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock {
+public final class ExitSignBlock extends FaceAttachedHorizontalDirectionalBlock implements EntityBlock {
 
     public static final MapCodec<ExitSignBlock> CODEC = simpleCodec(ExitSignBlock::new);
 
