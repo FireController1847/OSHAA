@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "QGI",
+    "ORO",
+    "IGQ"
+  ],
+  "key": {
+    "Q": {
+      "tag": "c:gems/quartz"
+    },
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "O": {
+      "tag": "c:ingots/copper"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "oshaa:mercury_vapor_bulb",
+    "count": 1
+  }
+}

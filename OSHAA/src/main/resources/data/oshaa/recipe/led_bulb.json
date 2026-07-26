@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "IGR",
+    "LNL",
+    "RDI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "N": {
+      "tag": "c:ingots/netherite"
+    },
+    "D": {
+      "tag": "c:gems/diamond"
+    }
+  },
+  "result": {
+    "id": "oshaa:led_bulb",
+    "count": 4
+  }
+}

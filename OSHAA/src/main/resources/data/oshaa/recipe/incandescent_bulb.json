@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " CI",
+    "GOG",
+    "IC "
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "O": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "result": {
+    "id": "oshaa:incandescent_bulb",
+    "count": 4
+  }
+}

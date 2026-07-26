@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CRW",
+    "IGI",
+    "WRC"
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "minecraft:white_stained_glass"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "result": {
+    "id": "oshaa:fluorescent_bulb",
+    "count": 4
+  }
+}

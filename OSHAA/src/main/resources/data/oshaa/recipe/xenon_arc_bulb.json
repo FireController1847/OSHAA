@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "QGI",
+    "O O",
+    "IGQ"
+  ],
+  "key": {
+    "Q": {
+      "tag": "c:gems/quartz"
+    },
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "O": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "result": {
+    "id": "oshaa:xenon_arc_bulb",
+    "count": 2
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "EDQ",
+    "IGI",
+    "QDE"
+  ],
+  "key": {
+    "E": {
+      "tag": "c:gems/emerald"
+    },
+    "D": {
+      "tag": "c:gems/diamond"
+    },
+    "Q": {
+      "tag": "c:gems/quartz"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    }
+  },
+  "result": {
+    "id": "oshaa:high_pressure_sodium_bulb",
+    "count": 2
+  }
+}

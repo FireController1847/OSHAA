@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " RW",
+    "LGL",
+    "WR "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "minecraft:white_stained_glass"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "result": {
+    "id": "oshaa:induction_bulb",
+    "count": 3
+  }
+}

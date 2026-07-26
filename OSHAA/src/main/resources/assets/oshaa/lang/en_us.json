@@ -60,5 +60,15 @@
   "block.oshaa.light_exit_sign": "Light Exit Sign",
   "block.oshaa.dark_exit_sign": "Dark Exit Sign",
   "itemGroup.oshaa.main": "OSHA Approved \u2713",
-  "tooltip.oshaa.energy_usage": "Energy Usage: %s"
+  "tooltip.oshaa.energy_usage": "Energy Usage: %s",
+  "tooltip.oshaa.item.carbon_arc_bulb": "It should work most of the time, right?",
+  "tooltip.oshaa.item.incandescent_bulb": "The ol' classic. Bewared of the heat...",
+  "tooltip.oshaa.item.halogen_bulb": "We're 85% sure this bulb won't explode.",
+  "tooltip.oshaa.item.xenon_arc_bulb": "I think it's safe, right? Yeah, it must be!",
+  "tooltip.oshaa.item.mercury_vapor_bulb": "It might be best to avoid dropping this one.",
+  "tooltip.oshaa.item.fluorescent_bulb": "*blink, blink-blink blink* *bzzzzzzzz*",
+  "tooltip.oshaa.item.induction_bulb": "Now we're getting somewhere.",
+  "tooltip.oshaa.item.metal_halide_bulb": "You wanted light now? No, maybe later...",
+  "tooltip.oshaa.item.high_pressure_sodium_bulb": "All light in this world is orange anyways!",
+  "tooltip.oshaa.item.led_bulb": "Efficient. Low-risk. Reliable."
 }
